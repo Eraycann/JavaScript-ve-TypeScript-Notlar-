@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // js'de any demek, herhangi bir tür farketmeksizin demektir.
+
+        const ogrenciler = new Map();
+        console.log(ogrenciler);    // Map(0) { size : 0} > [[Prototype]]: Map > [[Prototype]]: Object  (böylece map altındaki ve object altındaki metot ve property gibi değerleri kullanabilmekteyiz. )
+
+        // object tanımlama (map'de saklamak için)
+        let user = {username: "eraycansivri"};
+
+        ogrenciler.set(1,"ali yılmaz"); // (key-value) key:any (herhangi bir type değeri alabilir)
+        ogrenciler.set("5644443333","efe can");
+        ogrenciler.set(true,"ali can");
+        ogrenciler.set(user," eraycan sivri");    // map'de, object saklamış olduk
+
+        console.log(ogrenciler.get(1));         // set() ile key/value atanırken, get() key parametresi girerek ilgili value değerine ulaşılabilinir.
+        console.log(ogrenciler.get("5644443333"));
+        console.log(ogrenciler.get(true));
+        console.log(ogrenciler.get(user));
+
+
+        let sonuc;
+
+        sonuc = ogrenciler.size;    // boyutunu verir
+        sonuc = ogrenciler.has(2);  // 2 değeri var mı verir    (boolean)
+        ogrenciler.delete(1);   // 1 keyli satır silinir.
+        ogrenciler.clear();     // tüm elemanları siler
+
+        for(let x of ogrenciler.keys()) {       // key'ler getirilir.
+            console.log(x);
+        }
+
+        for(let x of ogrenciler.values()) {     // value'ler getirilir.
+            console.log(x);
+        }
+
+        // for(let x of ogrenciler.entries()) {    // key/value'ler getirilir. (dizi şeklinde)
+        //     console.log(x);
+        //     console.log(x[0]);  // key
+        //     console.log(x[1]);  // value
+        // }
+            // Alternatifi:
+
+        for(let [key,value] of ogrenciler.entries()) {
+            console.log(key,value); 
+        }
+
+        // Map yapısı object yapısına benzemektedir fakat object'den daha yetenekli daha işlevsel prop,metotlar barındırır.
+        /*  // Map'ın Object'den avantajları:
+        size
+        üzerine eklenilen veriler sıralandırılmış bir şekilde saklanmaktadır
+        key type'ı açısından özgürlük
+        */
+
+
+    </script>
+</body>
+</html>

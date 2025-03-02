@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .col-2 img {
+            height: 120px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container my-5">
+        <div class="card mb-3" >
+            <div class="card-body">
+                <div class="input-group">
+                    <input type="text" name="" id="txtSearch" class="form-control">
+                    <button type="button" id="btnSearch" class="btn btn-primary">Yükle</button>
+                </div>
+            </div>
+        </div>
+        <div class="card mb-3" id="country-details">
+          
+        </div>
+        <div class="card mb-3">
+            <div class="card-header">Komşu Ülkeler</div>
+            <div class="card-body">
+                <div class="row" id="neighbors">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        /*
+            getCounty() XMLHttpRequest() aracılığıyla bize bilgi gönderiyor.
+            ve load eventi gerçekleştiği anda data'yı alıyoruz.
+            extradan, gelen data üzerinden border'lara göre extra ikinci bir sorguyu gönderebiliyoruz.
+                ( const countries = data[0].borders.toString(); )
+            3. 4. .. sorgularda gönderilebilir ancak bu oldukça zor. 
+            kodlarımız karışıyor ayrıca biz sadece success durumunu ele alıyoruz.
+            başarısız sonuç geldiği durumlardada extra parametreler ( bir hata fonksiyonuda) gönderiyo olmamız gerekiyor.
+            ki sadece success değil, gelen hataları da ele alalım.
+            bunun içinde her gönderdiğimiz sorgu için, hem başarılı hemde başarısız sonucu ele almamız lazım.
+            1. request, 2. request, 3. request .. bu şekilde epey zor.
+            buna alternatif olarak promise yapısını kullandığımızda, resolve ve reject isminde metotlar bize başarılı/başarısız sonuçları ele almamızı oldukça kolaylaştırıyor.
+
+        */
+
+/*
+        document.querySelector('#btnSearch').addEventListener("click", () => {
+            let text = document.querySelector('#txtSearch').value;
+            getCountry(text);
+        })
+
+        function getCountry(country) {
+            const request = new XMLHttpRequest();   
+
+        request.open('GET','https://restcountries.com/v3.1/name/' + country)   
+        request.send(); 
+
+        request.addEventListener('load', function() {  
+
+            const data = JSON.parse(this.responseText);
+            console.log(typeof data);   
+            renderCountry(data[0]);
+
+            const countries = data[0].borders.toString();
+
+            // load neighbors
+            const req = new XMLHttpRequest();
+            req.open('GET', 'https://restcountries.com/v3.1/alpha?codes=' + countries);
+            req.send();
+
+            req.addEventListener('load',function() {
+                const data = JSON.parse(this.responseText);
+                renderNeighbors(data);
+            })
+        });
+        }
+*/
+
+        fetch('https://restcountries.com/v3.1/name/' + country)         // fetch api kullanıcaz. geri dönüş değeri bir promisedir. Promise<Response> 
+            .then( (response) => {  // then() ile başarılı sonuç gelir. gelen response'yi ekrana yazdırabiliriz.
+                console.log(response);  // response body'si içerisinde bir Stream (ReadableStream) olduğunu görüyoruz. Ancak bu stream'i okuyabilmek için, bunu okunabilir yazı, yani Json verisine döndürüyo olmamız gerekmektedir. Bu şekilde gelen string object ini, içinde ne var ne yok göremiyoruz.
+                console.log(response.json());   // Stream'ı json() metodu aracılığıyla, json'a parse etmiş oluyoruz.
+                    // Böylece bize bir promise gelir. Promise'yi ele almamız gerekir.
+                    // Promise geliyorsa bize, bu promise'yi return edip, tekrardan then'de okumamız lazım.
+                    return response.json();
+            })
+            .then((data) => {  
+                console.log(data);   // Artık json bilgiyi, biz burada okumuş oluyoruz.
+                renderCountry(data[0]);
+                const countries = data[0].borders.toString();
+
+                // return 123; // then'den döndürülen her değer bir promise'ye karşılık gelir. Burdan alınan her data alttaki thende direkt alınıp yazdırılabilinir.
+                return fetch('https://restcountries.com/v3.1/alpha?codes=' + countries);    // fetch promise dönderir
+            })
+            .then(response => {
+                return response.json(); // string to json
+            })
+            then((data) => {
+                renderNeighbors(data);
+            });
+
+            /*
+                .then((response) => {
+                    response.json();
+                })  // yapmaktansa, bunun yazımının kısa yolu :
+
+                .then((response) => response.json() )   // geriye otomatik return edilinir.
+            */
+
+        function renderCountry(data) {
+            console.log(Object.values(data.currencies)[0].name);
+            console.log(Object.values(data.currencies)[0].symbol);
+
+            let html = `
+            <div class="card-header">
+                Arama Sonucu
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <img src="${data.flags.png}" alt="" class="img-fluid">
+                    </div>
+                    <div class="col-8">
+                        <h3 class="card-title">${data.name.common}</h3>
+                        <hr>
+                        <div class="row">
+                            <div class="col-4">Nufüs: </div>
+                            <div class="col-8">${(data.population / 1000000).toFixed(1)} Milyon</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">Resmi Dil: </div>
+                            <div class="col-8">${Object.values(data.languages)}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">Başkent: </div>
+                            <div class="col-8">${data.capital[0]}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">Para Birimi: </div>
+                            <div class="col-8">${Object.values(data.currencies)[0].name} ${Object.values(data.currencies)[0].symbol})</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `;
+
+           
+            
+            document.querySelector("#country-details").innerHTML = html;       
+              
+        }
+
+
+     
+
+        function renderNeighbors(data) {
+            let html = "";
+            for(let country of data) {
+                html += `
+                    <div class="col-2 mt-2">
+                        <div class="card">
+                            <img src="${country.flags.png}" class="card-img-top">
+                            <div class="card-body">
+                                <h6 class="card-title">${country.name.common}</h6>
+                            </div>
+                        </div>
+                    </div>
+                `;            
+            }
+            document.querySelector("#neighbors").innerHTML = html;
+        }
+
+    </script>
+</body>
+</html>

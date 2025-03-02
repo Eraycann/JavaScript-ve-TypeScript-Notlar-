@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+    <script>
+        // ES5
+
+        // function selamlama() {
+        //     console.log("merhaba");
+        // }
+
+            var selamlamaES5 = function(isim) {
+                console.log("merhaba " + isim);
+            }
+            selamlamaES5("ali");    // merhaba ali
+
+        // ES6 - arrow function
+        // const selamlamaES6 = () => console.log("merhaba");
+        // const selamlamaES6 = () => { console.log("merhaba"); }
+        const selamlamaES6 = (isim) => { console.log("merhaba " + isim)};
+        selamlamaES5("ahmet");    // merhaba ahmet
+
+
+
+        //ES5
+        var toplamES5 = function(a, b) {
+            return a + b;
+        }
+
+        var sonuc = toplamES5(10,20);
+        console.log(sonuc); 
+
+        // ES6
+        // const toplamES6 = (a,b) => a + b;   // return keyword kullanmamama rağmen, varmışçasına iş görecektir.
+        const toplamES6 = (a,b) => { return a + b; }    // birden fazla satır kod yazarken, {} kullanarak, işlemi olduğunda return keywordü kullanmamız lazım.
+
+        sonuc = toplamES6(20,50);
+        console.log(sonuc);
+
+    </script>
+</body>
+</html>

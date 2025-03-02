@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <script>
+
+        console.log("start");
+
+        const serverStatus = false;
+
+        const login = (username, password) => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if(serverStatus) {
+                        resolve( { username: username, email: "info@sadikturan.com" } )
+                    } else {
+                        reject("server is offline");
+                    }
+                },1000);
+            })            
+        }
+
+        const getPostsByUsername = (username) => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(["post 1","post 2","post 3"]);
+                }, 2000)
+            })
+        }
+
+        const getPostDetails = (post) => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve("post details");
+                }, 1000)
+            })           
+        }
+
+        // login("sadikturan","12345", user => {
+        //     console.log(user.username);
+            
+        //     getPostsByUsername(user.username, (posts) => {
+        //         console.log(posts);
+
+        //         getPostDetails(posts[0], (details) => {
+        //             console.log(details);
+        //         })
+        //     });
+
+        // });
+
+        login("sadikturan","12345")
+            .then(user => {
+                console.log(user);
+                return getPostsByUsername(user.username);   // Birinci işlem yapıldı. ikinci işlemede bir promise döndürmemiz gerekmektedirki, then'e devam edebilelim. ilkinde user bilgisini aldık, getPostsByUsername(user.username) metodu parametresi ile, ikinci then'e user.username bilgisini göndermiş olduk (return ettik)?????????. getPostsByUsername bize bir promise döndürdüğü için, tekrardan then yapabiliyoruz.
+            })
+            .then(posts => {    // bu metot bize posts'ları döndürecek. gelen posts'ları bekleyerek, gelen posts bilgilerinide ekrana yazdırdık.
+                console.log(posts);
+                return getPostDetails(posts[0]);    // getPostDetails'a gelen postun 0. indexini gönderirir. Bunu gönderdikten sonra bize details bilgisi gelecek.
+            })
+            .then(details => {  // gelen details bilgisini, console.log(details) ile ekrana yazdırdık.
+                console.log(details);   // ardışık olan 3 tane işlemi bu şekilde bağlamış olduk. 1.'de login yaptık, username alarak yeni bir süreç başlatmış olduk. Burada return etmedik çünkü işlem devam etmiyor.
+            }).catch(err => {       // catch() bize hatayı getirdi. 
+                console.log(err);
+            })
+
+
+        console.log("end");
+
+
+
+    </script>
+    
+</body>
+</html>

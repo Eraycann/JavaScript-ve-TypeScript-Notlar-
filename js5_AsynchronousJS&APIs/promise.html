@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+/*
+        console.log("start");
+
+        const serverStatus = false;
+
+        const login = (username, password, successFn,errorFn) => {
+            setTimeout(() => {
+                if(serverStatus) {
+                successFn( {username: username, email: "info@sadikturan.com"})
+                } else {
+                    errorFn("server kapalı");
+                }
+            },1000);
+        }
+
+        const getPostsByUsername = (username, successFn) => {
+            setTimeout(() => {
+                successFn(["post 1","post 2","post 3"]);
+            }, 2000);
+        }
+
+        const getPostDetails = (post, successFn) => {
+            setTimeout(() => {
+                successFn("post details");
+            }, 1000);
+        }
+
+
+        login("sadikturan","12345",user => {
+            console.log(user.username);
+            console.log(user.email);
+
+            getPostByUsername(user.username, (posts) => {
+                console.log(posts);
+
+                getPostDetails(posts[0], (details) => {
+                    console.log(details);
+                })
+            });
+        },  (error) => {    // burasıda bir parametredir.
+            console.log(error);
+        });  
+
+        console.log("end");
+*/ 
+
+
+
+        // PROMİSE
+
+        const serverStatus = true;
+
+        const promise = new Promise((resolve, reject) => {  // parametrelerin anlamı: resolve, başarılı olduğunda çalışacak fonksiyon. reject, başarısız olduğunda çalışacak fonksiyon.
+            setTimeout(() => {
+               if(serverStatus) {
+                resolve({username: "sadikturan"});
+               } else {
+                reject("login error");
+               }
+            }, 2000);
+        } );     
+        
+        // Front-end'de apiyle çalışırken, promise mantığını kendimiz oluşturmayacağız, zaten api o şekilde dizayn edilmiş.
+        // Api bana doğru cevap sonucunda bir değer, yanlış cevap sonucunda bir hata mesajı göndermesi gerekiyor.
+        // Front-end tarafında yapılcak işlem, gelen promise yapısından then() metodu ile bana, resolve'den gönderilecek değeri alabilmekteyim.
+        // Aynı Callback'in success'de olduğu gibi.
+        // Sonuçta successte de bir parametreyi alabiliyorduk.
+
+        promise.then(user => {  
+            console.log(user);  // user bilgisini aldık ve ekrana yazdırdık.
+        }).catch(err => {       // catch() metoduda bize reject'den dönen değeri getirir. err isimli parametrede bu değeri aldık.
+            console.log(err);
+        })
+    </script>
+</body>
+</html>

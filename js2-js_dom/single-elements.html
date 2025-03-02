@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="card-header">
+        <h3 id="title" class="cart-title">ToDo App 2</h3>
+    </div>
+
+    <ul id="task-list">
+        <li>
+            Görev 1
+        </li>
+        <li>
+            Görev 2
+        </li>
+        <li>
+            Görev 3
+        </li>
+    </ul>
+
+    <script>
+        let sonuc;
+
+        sonuc = document.getElementById("title");   // #title olan elemanı getirir.
+        sonuc = document.getElementById("title").id;    // #title olan elemanın id attribute'sini getirir
+        sonuc = document.getElementById("title").className; // #title olan elemanın tekil class attribute getirir.
+        sonuc = document.getElementById("title").classList; // #title olan elemanın çoğul class attributelerini liste(dizi) halinde getirir.
+
+            // style
+        document.getElementById("title").style.fontSize = "30px";
+        document.getElementById("title").style.color = "blue";
+        document.getElementById("title").style.display = "none";
+
+        document.getElementById("title").innerText = "Todo App";            // innerText etiketleri görmezken,  (yorumlatmaz)
+        document.getElementById("title").innerHTML = "<p>Todo App</p>";     // innerHtml etiketleri görecektir. (yorumlatır)
+
+        sonuc = document.querySelector("#title");       //  #title olan elemanı seçer
+        sonuc = document.querySelector(".card-header"); // .card-header olan elemanı seçer.  (bulduğu ilk .card-header)
+        sonuc = document.querySelector("div");          // div olan elemanı seçer.           (bulduğu ilk div)
+
+        sonuc = document.querySelector("li");
+        sonuc = document.querySelector("li:first-child");   // querySelector içerisinde, css selector'lar kullanılabilmektedir.
+        sonuc = document.querySelector("li:last-child");
+        sonuc = document.querySelector("li:nth-child(2)");
+            // querySelector geriye tek bir eleman dönderir.
+
+
+        console.log(sonuc);     // Artık console, tarayıcının console'sidir.
+    </script>
+</body>
+</html>

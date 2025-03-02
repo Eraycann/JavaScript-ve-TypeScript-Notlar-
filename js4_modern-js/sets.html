@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // JavaScript Set veri tipi
+        
+        /*
+        Array yapısına benzesede, Set tekil verili bir koleksiyondur. Bir set içerisine 2 tane 5 rakamı attığımızdan sonra bu tekrarladığı için sadece bir tanesi liste içerisinde yer bulacaktır.
+        Herbir liste elemanı istediğimiz veri tipinde olabilir.
+        extra metotlar var
+        Map üzerinde key/value şeklinde object yapısına benzer veriler saklanabilmekteyken, set üzerinde bir liste tutulunur.
+        */
+
+        // const sayilar = new Set(1,2,3,4);   // ctor üzerinden veri ekleme
+
+        const sayilar = new Set();
+
+        sayilar.add(1);
+        sayilar.add(2);
+        sayilar.add(3);
+        sayilar.add(3); // Daha önceden 3 old. dolayı bunun herhangi bir işlevi yoktur.
+        sayilar.add("4");
+
+        const dizi = [...sayilar];  // bu sadece liste elemanları, array olaarak karşımıza gelir. (arrayin length prop varken set()in size prop vardır.)
+
+        sayilar.delete(1);  // value değeri yazmak yeterli olacaktır.
+        console.log(sayilar.has(1));    // boolean
+        sayilar.clear();    // sayılar dizisi içindeki tüm elemanları siler.
+
+        console.log(sayilar.values());  // bize bir SetIterator gelmektedir. böylece sayilar elemanları üzerinde dolaşabilmekteyiz demektir.
+
+        for(let x of sayilar) {     // sayilar.values() demeye gerek yok çünkü key/value şeklinde bir yapımız yok. zaten sayilar üzerindeki herbir elemana direkt olaşabilmekteyiz. sayılar sonuçta bir Iteriable bir objectdir. Yani Iteriable object olması demek, biz bunun üzerinde for döngüsüyle dolaşabiliriz demektir.
+            console.log(x);
+        }
+
+
+
+
+        console.log(sayilar);       // Set(0) {size: 0} > [[Prototype]]: Set > [[Prototype]]: Object
+
+
+
+    </script>
+</body>
+</html>

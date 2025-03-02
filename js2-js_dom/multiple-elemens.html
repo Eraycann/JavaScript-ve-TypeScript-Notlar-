@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="card-header">
+        <h3 id="title" class="cart-title">ToDo App 2</h3>
+    </div>
+
+    <ul id="task-list">
+        <li class = "task">
+            Görev 1
+        </li>
+        <li class = "task">
+            Görev 2
+        </li>
+        <li class = "task">
+            Görev 3
+        </li>
+    </ul>
+
+
+    <ul id="task-list2">
+        <li class = "task">
+            Görev 1
+        </li>
+        <li class = "task">
+            Görev 2
+        </li>
+        <li class = "task">
+            Görev 3
+        </li>
+    </ul>
+
+    <script>
+        let sonuc;
+
+        sonuc = document.getElementsByClassName("task")[0];     // getElemensByClassName(), bir koleksiyon döner. index no'suna göre ilgili eleman seçilinir.
+        sonuc = document.getElementsByClassName("task")[1];
+
+        taskList = document.getElementsByClassName("task");
+
+        for(let i=0; i < taskList.length;i++) {
+            console.log(taskList[i]);
+        }
+
+        for(let task of taskList) {     // yukardakinin alternatifi (for döngüsü)
+            console.log(task);          // of yerine in operatörü kullandığımızda ise, index no. larına ulaşırdık.
+                                       // of operatörünü kullanarak liste içindeki elemente karşılık gelir.
+            task.style.color = "red";
+            task.style.fontSize = "20px";
+            task.innerText = "Item";
+        }
+
+        // ************************************************************************************************************
+
+        // yukarıda, class'ı task olan tüm elemanları seçerek işleme girdik. böyle bir şeyler istemiyorsak; bunlar uygulanabilinir.
+
+        ul = document.getElementById("task-list");
+        taskList = ul.getElementsByTagName("li");
+                // herzaman document üzerinden gitmek zorunda değiliz. bir kapsama ulaşıp, o kapsam altındanda işlemlerimizi yürütebilmekteyiz.
+
+
+        // querySelectorAll() kullanarak alternatifi:
+        taskList = document.querySelectorAll("#task-list li");      // querySelector() bir tane dönderirken (ilk bulduğu li), querySelectorAll() bir koleksiyon döndermektedir (bütün li'ler).
+            // querySelector() - querySelectorAll() , css selector vasıtasıyla kullanılabilmektedirler.
+
+        console.log(sonuc);     
+    </script>
+</body>
+</html>

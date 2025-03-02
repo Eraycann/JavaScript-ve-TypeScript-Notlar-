@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // function constructor
+        // bir nesne oluşturabilmek için, bir function constructor oluşturmamız lazım.
+        // ve bu constructor aracılığıyla yeni nesne kopyaları oluşturabilmekteyiz. ve bu kopyalar üzerinden tekrarlanan işlemlerin önüne geçmiş oluyoruz.
+        // örneğin bir araba sınıfı oluşturup, bu sınıftan nesne türetmeleri yapmaktayız.
+        // bu aşamaya kadar function constructor vasıtasıyla yaptık ama artık class yapısını kullanabilmekteyiz.
+
+        function KisiES5(ad,meslek,dogumYili) {   // bu bizim için bir constructor'a karşılık gelmektedir.
+        this.ad = ad;
+        this.meslek = meslek;
+        this.dogumYili = dogumYili;
+        }
+
+        KisiES5.prototype.yasHesapla = function() {  // Prototype, function constructor içinde fonksiyon tanımlama
+            let tarih = new Date().getFullYear();
+            return tarih - this.dogumYili;
+        }
+
+        let emre = new KisiES5("emre yağcı","öğrenci",1990);
+        let ahmet = new KisiES5("ahmet yılmaz","öğretmen",1985);
+
+        console.log(emre);      // tarayıcıda çalıştırdığımızda function constructor ile classla yazılan arasında hiçbir fark bulunmaz.
+        console.log(ahmet);
+
+        // class
+        // biz class yapısı tanımlasak dahi, tarayıcılar için bir ara derleyici vasıtasıyla (ara derleyici - transplayer??), onu function constructor'a dönüşterek sunuyoruz.
+
+        class KisiES6 {
+            constructor(ad,meslek,dogumYili) {
+                this.ad = ad;
+                this.meslek = meslek;
+                this.dogumYili = dogumYili;
+                console.log("nesne oluşturuldu");
+            }
+
+            yasHesapla(){
+                let tarih = new Date().getFullYear();
+                return tarih - this.dogumYili;
+            }
+        }
+
+    
+
+        let kisi1 = new KisiES6("eraycan sivri","öğrenci",2017);
+        let kisi2 = new KisiES6("can sivri","öğrenci",2012);
+
+        console.log(kisi1);
+        console.log(kisi2);
+
+        // Function Constructor ve classta da Prototype kısmında object vardır. object'den türerler.
+
+
+    </script>
+</body>
+</html>

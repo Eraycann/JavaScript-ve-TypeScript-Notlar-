@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // login    => username
+        // posts
+        // create post
+            //  login olmak için username ihtiacı var. ilgili username'ye göre postslar listelenecek. post create edildikten SONRA postslar listelenecek..
+                // (async işlem)
+
+        // sipariş verilmesi
+        // sipariş hazırlanması
+        // sipariş teslimatı
+                // (async işlem)
+
+
+        console.log("start");
+
+        const login = (username, password, callback) => {
+            setTimeout(() => {
+                callback( {username: username, email: "info@eraycansivri.com"})
+            },1000);
+        }
+
+        const getPostsByUsername = (username, callback) => {
+            setTimeout(() => {
+                callback(["post 1","post 2","post 3"]);
+            }, 2000);
+        }
+
+        const getPostDetails = (post, callback) => {
+            setTimeout(() => {
+                callback("post details");
+            }, 1000);
+        }
+
+        login("sadikturan","12345",user => {
+            console.log(user.username);
+            console.log(user.email);
+
+            getPostByUsername(user.username, (posts) => {
+                console.log(posts);
+
+                getPostDetails(posts[0], (details) => {     // parametreye gönderilen liste elemanının details'ları yazdırılacak.
+                    console.log(details);
+                })
+            });
+        })
+            // Burdaki amaç süreci yönetebilmek. Callback vasıtasıyla
+            // Ve bu sürecin beklenilmesini Callback aracılığıyla yapıyoruz.
+            // Ve bu şekilde ardışık işlemleri, asenkson çalışma modeli ile ele alabiliyoruz.
+            // Burda iç içe işlemlerin devam ettiği görülebilir.
+            // Login > logine bağlı olan postların alınması (getPostByUsername) > herhangi bir postun detay bilgisi alınması (getPostDetails)
+            // 1-2 tane süreç için Callback fonksiyon kullanmak problem olmayacaktır, fakat işlem uzaadıkça, dıştan içe doğru çalışma modeli karşımıza gelecektir.
+            // Bu boktan sürecen callback hell denilir.
+            // Bu dandik callback yönetemi yerine, yazımı daha kolay olan Promise yöntemi kullanılabilir.
+            // async-await en iyi yöntemdir.
+        console.log("end");
+            
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        const sayilar = [1,5,7,3,2,67];
+        const urunler = [
+            {urunAdi: "iphone 11", fiyat: 12000},
+            {urunAdi: "iphone 12", fiyat: 15000},
+            {urunAdi: "iphone 13", fiyat: 18000},
+            {urunAdi: "iphone 13 Pro", fiyat: 22000},
+        ]
+
+
+        // const tekSayilar = [];
+        // for(let sayi of sayilar) {  // of, indexle uğraşmadan koleksiyonda gezinmemizi sağlar
+        //     if(sayi%2==1) {
+        //         tekSayilar.push(sayi);
+        //     }
+        // }
+            // Alternatifi :
+
+        
+        // const tekSayiKontrol = (sayi) => sayi % 2 == 1;
+
+        // const tekSayilar = sayilar.filter(tekSayiKontrol);  // filter() metodu, sayilar koleksiyonunun elemanlarının her birini teker teker alır ve parametredeki metodun içerisinde çalıştırır. tekSayiKontrol() metodu true/false gelecektir. true gelenleri toparlar ve koleksiyon olarak geriye dönderi.
+                // tekSayiKontrol() yapmamamızın sebebi, fonksiyonu çalıştırmıyoruz, sadece fonksiyonun adresini filter'a gönderiyoruz. (referans olarak gönderdik.)
+
+        const tekSayilar = sayilar.filter((sayi) => sayi % 2 == 1);
+        const tekSayilar0 = sayilar.map((sayi) => sayi % 2 == 1);   // true true true true false true
+                // map() herbir eleman üzerinde işlem yapmak için kullanılır fakat kriter gönderilir
+                // sayilar listesi içindeki herbir eleman sayi adıyla ilgili parametreye gidecek.
+            
+        // const sonuc = urunler.map(urun => urun);    //  bütün urunler elemanları urun parametresine alınır ve bunlarda tek tek gelir. 
+     
+        // const sonuc = urunler.map(urun => urun.urunAdi);    // herbir urunun adı olan 4 elemanlı liste dönderir.    (filtreleme yok)
+
+         const sonuc = urunler.filter(urun => urun.fiyat > 15000);   // (filtreleme var) (c# lambda expression)
+                // urun'lerden alt özellikleri map() getirirken, filtrelemeyi filter() metodu getirmektedir.
+
+        // const filtrelenenUrunler = urunler.filter(urun => urun.fiyat > 15000);
+        // sonuc = filtrelenenUrunler.map(urun => urun.urunAdi);
+            // Alternatif
+
+        sonuc = urunler.filter(urun => urun.fiyat > 15000).map(urun => urun.urunAdi);
+                // Yukarıdaki 2 satırlık kodu, tek satıra dökerek yazdık.
+
+        sonuc = urunler.find(urun => urun.fiyat > 12000);   // urun.Fiyat > 12000 old. bulduğu ilk değeri getirir.
+
+        sonuc = urunler.findIndex(urun => urun.fiyat > 12000);  //  urun.Fiyat > 12000 old. bulduğu ilk değerin indexini getirir.
+
+        
+    </script>
+</body>
+</html>

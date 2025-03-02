@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // array destructing
+        let name = ["eraycan","sivri"];
+
+        // let firstName = name[0];
+        // let lastName = name[1];
+            // Alternatifi
+
+        // let [firstName,lastName] = name;     // dizinin 0. ve 1. index elemanlarını alıp sırayla yerleştirir.
+            // Alternatifi
+            // let [firstName,lastName] = "Eraycan Sivri".split(" ");    // split(" ") metodu vasıtasıyla, ilgili string dizisini " " bölerek, dizinin 0. ve 1. elemanlarına yerleştirir.
+
+        
+
+        let user = ["eraycan","sivri","ankara","çankaya"];
+
+        // let [firstName,lastName, , town] = user;    //  , , şeklinde kullanım bir yer tutucudur. user dizisinden, 3. elemanı almak istemediğimizi belirttik.
+
+        let [firstName, lastname, ...address] = user;   //  ...address ile user dizisinden gelecek 3 ve 4. elemanlar bir diziye aktarılıp getirilir.
+
+
+        // object destructuring
+        let urun = {
+            marka: "Apple",
+            model: "Iphone 13",
+            // fiyat: 20000
+        }
+
+        let {marka,model,fiyat = 0, satisDurumu = false } = urun;   // satisDurumu = false, object içerisinde tanımlanmadıysa bu şekilde false bilgisi ekrana gelsin istiyorum.
+
+        // Öğrendiklerimizle yanlış yazmalı fonksiyon tanımlayıp, ardından doğru yazımını tanımlayalım.
+
+        // function urunGoster(marka,model,fiyat = 0,satisDurumu=false) {
+        //     console.log(marka,mode,fiyat,satisDurumu);
+        // }
+        // urunGoster("apple","iphone 12",true);   // bu şekilde bir kullanımda hatalı olacaktır, fiyat yerine true gelecek.
+                // Doğru yazımı
+
+            function urunGoster(obj) {
+                let {marka,model,fiyat=0,satisDurumu=false} = obj;
+                console.log(marka,model,fiyat,satisDurumu);
+            }
+
+            urunGoster(urun);
+
+
+
+
+    </script>
+</body>
+</html>

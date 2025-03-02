@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <button id="btn">save</button>
+
+    <script>
+
+            // sync 
+        console.log(1);
+        console.log(2);
+        console.log(3);
+        // burada üstten alta doğru, bir işlem bitmeden, diğeri başlatılmaz.
+
+            // async
+            console.log(1);
+        
+            setTimeout(() => {      // (async işlem)
+                console.log(2);
+            }, 2000);   // 2000 ms geçtikten sonra fonksiyonun scopeleri çalışır.
+
+            console.log(3);
+
+            document.getElementById("btn").addEventListener("click", () => {    // (async işlem)
+                console.log("saved");
+            });
+
+            // api
+            
+            // asycn bittiğinde (ne zaman bitceği belli olmadığı için) diğerlerini başlatma önlemleri gibi şeyleri kendimizin hazırlaması lazım.
+            // callback, promise, async_await
+    </script>
+</body>
+</html>

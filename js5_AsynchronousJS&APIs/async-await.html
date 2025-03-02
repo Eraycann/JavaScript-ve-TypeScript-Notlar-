@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+
+    <script>
+
+        console.log("start");
+
+        const serverStatus = false;
+
+        const login = (username, password) => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    if(serverStatus) {
+                        resolve( { username: username, email: "info@sadikturan.com" } )
+                    } else {
+                        reject("server is offline");    // hata catch()'de  yakalanır.
+                    }
+                },1000);
+            })            
+        }
+
+        const getPostsByUsername = (username) => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve(["post 1","post 2","post 3"]);
+                }, 2000)
+            })
+        }
+
+        const getPostDetails = (post) => {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve("post details");
+                }, 1000)
+            })           
+        }
+
+
+       
+        // sync
+        // const user = login("sadikturan","12345");       // login() fonksiyonundan gelecek olan user bilgisinin ne zaman geleceği belli değil. Dolayısıyla ben geldiğinden emin olmadığım bir bilgi üzerinden bir başka bilgili veritabanından alamam. (posts) dolayısıyla promise2'de bu bilgiyi aldıktan sonra, ben sonraki aşamaya gidicem dedik. (then bloklarıyla)
+        // const posts = getPostsByUsername(user.username);
+
+
+        async function displayUser() {      // await keywordü sadece asenkron fonksiyon içinde çalışır. fonksiyonu asenkron yapmak içinde, başına async keywordünü eklememiz lazım.
+            try {
+                const user = await login("eraycansivri", "12345");    // await keyword ile burda bekliyorum. burdan gelecek olan user bilgisi bana geldikten sonra, bir alt satıra geçmek istiyorum.
+                console.log(user);
+    
+                const posts = await getPostsByUsername(user.username);
+                console.log(posts);
+    
+                const details = await getPostDetails(posts[0]);
+                console.log(details);
+            }
+            catch(err) {
+                console.log(err);
+            }
+
+        }
+
+        displayUser();
+
+        console.log("end");
+
+
+
+    </script>
+    
+</body>
+</html>
